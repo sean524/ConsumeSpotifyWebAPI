@@ -34,9 +34,34 @@ namespace ConsumeSpotifyWebAPI.Controllers
             {
                 var token = await _spotifyAccountService.GetToken(_configuration["Spotify:ClientId"], _configuration["Spotify:ClientSecret"]);
 
-                var newReleases = await _spotifyService.GetNewReleases("FR", 20, token);
+                var newReleases = await _spotifyService.GetNewReleases("US", 50, token);
 
                 return newReleases;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+
+                return Enumerable.Empty<Release>();
+            }
+        }
+
+        public async Task<IActionResult> Search(string SearchString)
+        {
+            var newSearches = await GetSearches(SearchString);
+
+            return View(newSearches);
+        }
+
+        private async Task<IEnumerable<Release>> GetSearches(string SearchString)
+        {
+            try
+            {
+                var token = await _spotifyAccountService.GetToken(_configuration["Spotify:ClientId"], _configuration["Spotify:ClientSecret"]);
+
+                var newSearches = await _spotifyService.GetNewSearches(SearchString, "album", 50, token);
+
+                return newSearches;
             }
             catch (Exception ex)
             {

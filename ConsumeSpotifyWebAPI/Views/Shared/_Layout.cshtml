@@ -12,24 +12,17 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-dark box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">ConsumeSpotifyWebAPI</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                <form asp-controller="Home" asp-action="Search" method="get">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Country</label>
+                      <input type="text" class="form-control" name="SearchString" placeholder="Search your music here!">
+                      <div class="input-group-append">
+                        @*<button class="btn btn-outline-secondary" type="button">Search</button>*@
+                        <input type="submit" value="Search" class="btn btn-primary"/>
                       </div>
-                      <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
                     </div>
-                </div>
+                </form>
+
             </div>
         </nav>
     </header>
