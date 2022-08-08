@@ -16,8 +16,41 @@
                 
 
                 <form asp-controller="Search" asp-action="Search" method="get" class="container-fluid">
-                    
-                    <div class="declared-first">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="input-group">
+                              <input type="text" class="form-control" name="SearchString" placeholder="Search your music here!">
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm mt-2">
+                                <select class="form-select container-fluid" name="TypeString">
+                                  <option selected value="album">Album</option>
+                                  <option value="artist">Artist</option>
+                                  <option value="playlist">Playlist</option>
+                                  <option value="track">Track</option>
+                                  <option value="show">Show</option>
+                                  <option value="episode">Episode</option>
+                                </select>
+                            </div>
+                            <div class="col-sm mt-2">
+                                
+                            </div>
+                        </div>
+                    </div>
+@*
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="SearchString" placeholder="Search your music here!">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                      </div>
+                    </div>
+
+                    <div class="declared-first mt-2">
                         <select class="form-select container-fluid" name="TypeString">
                           <option selected>Open this select menu</option>
                           <option value="album">Album</option>
@@ -28,14 +61,7 @@
                           <option value="episode">Episode</option>
                         </select>
                     </div>
-                    
-                    <div class="input-group">
-                      <input type="text" class="form-control" name="SearchString" placeholder="Search your music here!">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                      </div>
-                    </div>
-
+*@
                 </form>
 
             </div>
