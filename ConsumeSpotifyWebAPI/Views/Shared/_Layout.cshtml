@@ -11,16 +11,31 @@
 <body class="bg-black">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-dark box-shadow mb-3">
-            <div class="container-fluid">
+            <div class="container-fluid ms-5 me-5">
 
-                <form asp-controller="Home" asp-action="Search" method="get">
+                
+
+                <form asp-controller="Search" asp-action="Search" method="get" class="container-fluid">
+                    
+                    <div class="declared-first">
+                        <select class="form-select container-fluid" name="TypeString">
+                          <option selected>Open this select menu</option>
+                          <option value="album">Album</option>
+                          <option value="artist">Artist</option>
+                          <option value="playlist">Playlist</option>
+                          <option value="track">Track</option>
+                          <option value="show">Show</option>
+                          <option value="episode">Episode</option>
+                        </select>
+                    </div>
+                    
                     <div class="input-group">
                       <input type="text" class="form-control" name="SearchString" placeholder="Search your music here!">
                       <div class="input-group-append">
-                        @*<button class="btn btn-outline-secondary" type="button">Search</button>*@
-                        <input type="submit" value="Search" class="btn btn-primary"/>
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
                       </div>
                     </div>
+
                 </form>
 
             </div>

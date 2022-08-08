@@ -35,7 +35,7 @@ namespace ConsumeSpotifyWebAPI.Services
             });
         }
 
-        public async Task<IEnumerable<Release>> GetNewSearches(string search, string type, int limit, string accessToken)
+        public async Task<IEnumerable<Release>?> GetNewAlbums(string search, string type, int limit, string accessToken)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -54,6 +54,46 @@ namespace ConsumeSpotifyWebAPI.Services
                 Link = i.external_urls.spotify,
                 Artists = string.Join(",", i.artists.Select(i => i.name))
             });
+        }
+
+        public async Task<IEnumerable<ArtistSearch>?> GetNewArtists(string search, string type, int limit, string accessToken)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var response = await _httpClient.GetAsync($"search?q={search}&type={type}&limit={limit}");
+
+            response.EnsureSuccessStatusCode();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var responseObject = await JsonSerializer.DeserializeAsync<GetArtistResult>(responseStream);
+
+            return responseObject?.artists?.items.Select(i => new ArtistSearch
+            {
+                Name = i.name,
+                Followers = i.followers.total,
+                ImageUrl = i.images.FirstOrDefault().url,
+                Link = i.external_urls.spotify
+            });
+        }
+
+        public Task<IEnumerable<Release>> GetNewPlaylists(string search, string type, int limit, string accessToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Release>> GetNewTasks(string search, string type, int limit, string accessToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Release>> GetNewShows(string search, string type, int limit, string accessToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Release>> GetNewEpisodes(string search, string type, int limit, string accessToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }
