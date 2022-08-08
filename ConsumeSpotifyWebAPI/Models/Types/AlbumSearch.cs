@@ -1,6 +1,6 @@
-﻿namespace ConsumeSpotifyWebAPI.Models
+﻿namespace ConsumeSpotifyWebAPI.Models.Types
 {
-    public class Release        // albums.items
+    public class AlbumSearch        // albums.items
     {
         public string Name { get; set; }    // name
         public string Artists { get; set; } // release_date

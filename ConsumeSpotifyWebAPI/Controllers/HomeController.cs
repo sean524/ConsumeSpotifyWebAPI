@@ -1,4 +1,5 @@
 ﻿using ConsumeSpotifyWebAPI.Models;
+using ConsumeSpotifyWebAPI.Models.Types;
 using ConsumeSpotifyWebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -28,7 +29,7 @@ namespace ConsumeSpotifyWebAPI.Controllers
             return View(newReleases);
         }
 
-        private async Task<IEnumerable<Release>> GetReleases()
+        private async Task<IEnumerable<AlbumSearch>> GetReleases()
         {
             try
             {
@@ -42,7 +43,7 @@ namespace ConsumeSpotifyWebAPI.Controllers
             {
                 Debug.Write(ex);
 
-                return Enumerable.Empty<Release>();
+                return Enumerable.Empty<AlbumSearch>();
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using ConsumeSpotifyWebAPI.Models;
+﻿using ConsumeSpotifyWebAPI.Models.Types;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -14,7 +14,7 @@ namespace ConsumeSpotifyWebAPI.Services
 
         public HttpClient HttpClient { get; }
 
-        public async Task<IEnumerable<Release>> GetNewReleases(string countryCode, int limit, string accessToken)
+        public async Task<IEnumerable<AlbumSearch>> GetNewReleases(string countryCode, int limit, string accessToken)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -25,7 +25,7 @@ namespace ConsumeSpotifyWebAPI.Services
             using var responseStream = await response.Content.ReadAsStreamAsync();
             var responseObject = await JsonSerializer.DeserializeAsync<GetNewReleaseResult>(responseStream);
 
-            return responseObject?.albums?.items.Select(i => new Release
+            return responseObject?.albums?.items.Select(i => new AlbumSearch
             {
                 Name = i.name,
                 Date = i.release_date,
@@ -35,7 +35,7 @@ namespace ConsumeSpotifyWebAPI.Services
             });
         }
 
-        public async Task<IEnumerable<Release>?> GetNewAlbums(string search, string type, int limit, string accessToken)
+        public async Task<IEnumerable<AlbumSearch>?> GetNewAlbums(string search, string type, int limit, string accessToken)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -46,7 +46,7 @@ namespace ConsumeSpotifyWebAPI.Services
             using var responseStream = await response.Content.ReadAsStreamAsync();
             var responseObject = await JsonSerializer.DeserializeAsync<GetNewReleaseResult>(responseStream);
 
-            return responseObject?.albums?.items.Select(i => new Release
+            return responseObject?.albums?.items.Select(i => new AlbumSearch
             {
                 Name = i.name,
                 Date = i.release_date,
@@ -76,22 +76,22 @@ namespace ConsumeSpotifyWebAPI.Services
             });
         }
 
-        public Task<IEnumerable<Release>> GetNewPlaylists(string search, string type, int limit, string accessToken)
+        public Task<IEnumerable<AlbumSearch>> GetNewPlaylists(string search, string type, int limit, string accessToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Release>> GetNewTasks(string search, string type, int limit, string accessToken)
+        public Task<IEnumerable<AlbumSearch>> GetNewTasks(string search, string type, int limit, string accessToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Release>> GetNewShows(string search, string type, int limit, string accessToken)
+        public Task<IEnumerable<AlbumSearch>> GetNewShows(string search, string type, int limit, string accessToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Release>> GetNewEpisodes(string search, string type, int limit, string accessToken)
+        public Task<IEnumerable<AlbumSearch>> GetNewEpisodes(string search, string type, int limit, string accessToken)
         {
             throw new NotImplementedException();
         }

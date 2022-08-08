@@ -1,4 +1,4 @@
-﻿namespace ConsumeSpotifyWebAPI.Models
+﻿namespace ConsumeSpotifyWebAPI.Models.Types
 {
     public class ArtistSearch
     {

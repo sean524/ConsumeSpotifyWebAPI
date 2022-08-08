@@ -1,5 +1,4 @@
-﻿
-public class GetNewReleaseResult
+﻿public class GetNewReleaseResult
 {
     public Albums albums { get; set; }
 }
@@ -58,7 +57,7 @@ public class Image
     public string url { get; set; }
     public int width { get; set; }
 }
-namespace ConsumeSpotifyWebAPI.Models
+namespace ConsumeSpotifyWebAPI.Models.Results
 {
     public class GetNewReleaseResult
     {

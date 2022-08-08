@@ -1,4 +1,4 @@
-﻿using ConsumeSpotifyWebAPI.Models;
+﻿using ConsumeSpotifyWebAPI.Models.Types;
 using ConsumeSpotifyWebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -49,7 +49,7 @@ namespace ConsumeSpotifyWebAPI.Controllers
             return View();
         }
 
-        private async Task<IEnumerable<Release>> GetAlbums(string SearchString, string TypeString)
+        private async Task<IEnumerable<AlbumSearch>> GetAlbums(string SearchString, string TypeString)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace ConsumeSpotifyWebAPI.Controllers
             {
                 Debug.Write(ex);
 
-                return Enumerable.Empty<Release>();
+                return Enumerable.Empty<AlbumSearch>();
             }
         }
 
