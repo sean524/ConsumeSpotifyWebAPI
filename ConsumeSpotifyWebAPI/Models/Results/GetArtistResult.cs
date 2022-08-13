@@ -1,5 +1,4 @@
-﻿
-public class GetArtistResult
+﻿public class GetArtistResult
 {
     public Artists artists { get; set; }
 }

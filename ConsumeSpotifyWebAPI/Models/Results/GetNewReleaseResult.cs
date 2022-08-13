@@ -57,9 +57,4 @@ public class Image
     public string url { get; set; }
     public int width { get; set; }
 }
-namespace ConsumeSpotifyWebAPI.Models.Results
-{
-    public class GetNewReleaseResult
-    {
-    }
-}
+

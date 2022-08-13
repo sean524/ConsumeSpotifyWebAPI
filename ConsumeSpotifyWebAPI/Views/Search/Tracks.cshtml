@@ -1,7 +1,25 @@
-﻿
+﻿@using ConsumeSpotifyWebAPI.Models.Types
+@model IEnumerable<TrackSearch>
+
 @{
     ViewData["Title"] = "Tracks";
 }
 
-<h1>Tracks</h1>
-
+<h1 class="text-muted">Tracks</h1>
+<div class="row mt-4 justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="card m-1 bg-dark" style="width:350px;">
+            <div class="card-body">
+                <h5 class="card-title text-light">@Html.DisplayFor(modelItem => item.Name)</h5>
+                <h6 class="card-subtitle mt-2 text-muted">@Html.DisplayFor(modelItem => item.AlbumName)</h6>
+                <h6 class="card-subtitle my-2 text-muted">@Html.DisplayFor(modelItem => item.Artists)</h6>
+                <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" width="300" alt="Release picture"/>
+                @*<h6 class="card-subtitle mt-2 text-muted">@Html.DisplayFor(modelItem => item.Popularity)</h6>
+                <h6 class="card-subtitle mt-2 text-muted">Duration: @Html.DisplayFor(modelItem => item.Duration)</h6>*@
+                <h6 class="card-subtitle mt-2 text-muted">Released: @Html.DisplayFor(modelItem => item.ReleaseDate)</h6>
+                <a class="btn btn-outline-light mt-3" href="@Html.DisplayFor(modelItem => item.Link)" target="_blank">Listen</a>
+            </div>
+        </div>
+    }
+</div>

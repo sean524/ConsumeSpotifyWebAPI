@@ -7,9 +7,9 @@ namespace ConsumeSpotifyWebAPI.Services
         Task<IEnumerable<AlbumSearch>> GetNewReleases(string countryCode, int limit, string accessToken);
         Task<IEnumerable<AlbumSearch>> GetNewAlbums(string search, string type, int limit, string accessToken);
         Task<IEnumerable<ArtistSearch>> GetNewArtists(string search, string type, int limit, string accessToken);
-        Task<IEnumerable<AlbumSearch>> GetNewPlaylists(string search, string type, int limit, string accessToken);
-        Task<IEnumerable<AlbumSearch>> GetNewTasks(string search, string type, int limit, string accessToken);
-        Task<IEnumerable<AlbumSearch>> GetNewShows(string search, string type, int limit, string accessToken);
-        Task<IEnumerable<AlbumSearch>> GetNewEpisodes(string search, string type, int limit, string accessToken);
+        Task<IEnumerable<PlaylistSearch>> GetNewPlaylists(string search, string type, int limit, string accessToken);
+        Task<IEnumerable<TrackSearch>> GetNewTracks(string search, string type, int limit, string accessToken);
+        Task<IEnumerable<ShowSearch>> GetNewShows(string search, string type, int limit, string accessToken);
+        Task<IEnumerable<EpisodeSearch>> GetNewEpisodes(string search, string type, int limit, string accessToken);
     }
 }

@@ -14,7 +14,7 @@ namespace ConsumeSpotifyWebAPI.Services
 
         public HttpClient HttpClient { get; }
 
-        public async Task<IEnumerable<AlbumSearch>> GetNewReleases(string countryCode, int limit, string accessToken)
+        public async Task<IEnumerable<AlbumSearch>?> GetNewReleases(string countryCode, int limit, string accessToken)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -60,7 +60,7 @@ namespace ConsumeSpotifyWebAPI.Services
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            var response = await _httpClient.GetAsync($"search?q={search}&type={type}&limit={limit}");
+            var response = await _httpClient.GetAsync($"search?q={search}&type={type}");
 
             response.EnsureSuccessStatusCode();
 
@@ -71,29 +71,99 @@ namespace ConsumeSpotifyWebAPI.Services
             {
                 Name = i.name,
                 Followers = i.followers.total,
+                ImageUrl = i.images.FirstOrDefault()?.url,
+                Link = i.external_urls.spotify
+            });
+        }
+
+        public async Task<IEnumerable<PlaylistSearch>?> GetNewPlaylists(string search, string type, int limit, string accessToken)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var response = await _httpClient.GetAsync($"search?q={search}&type={type}&limit={limit}");
+
+            response.EnsureSuccessStatusCode();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var responseObject = await JsonSerializer.DeserializeAsync<GetPlaylistResults>(responseStream);
+
+            return responseObject?.playlists?.items.Select(i => new PlaylistSearch
+            {
+                Name = i.name,
+                OwnerName = i.owner.display_name,
+                Description = i.description,
                 ImageUrl = i.images.FirstOrDefault().url,
                 Link = i.external_urls.spotify
             });
         }
 
-        public Task<IEnumerable<AlbumSearch>> GetNewPlaylists(string search, string type, int limit, string accessToken)
+        public async Task<IEnumerable<TrackSearch>?> GetNewTracks(string search, string type, int limit, string accessToken)
         {
-            throw new NotImplementedException();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var response = await _httpClient.GetAsync($"search?q={search}&type={type}&limit={limit}");
+
+            response.EnsureSuccessStatusCode();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var responseObject = await JsonSerializer.DeserializeAsync<GetTrackResults>(responseStream);
+
+            return responseObject?.tracks?.items.Select(i => new TrackSearch
+            {
+                Name = i.name,
+                AlbumName = i.album.name,
+                Artists = string.Join(",", i.artists.Select(i => i.name)),
+                Duration = i.duration_ms,
+                Explicit = i._explicit,
+                Popularity = i.popularity,
+                ReleaseDate = i.album.release_date,
+                ImageUrl = i.album.images.FirstOrDefault().url,
+                Link = i.external_urls.spotify,
+            });
         }
 
-        public Task<IEnumerable<AlbumSearch>> GetNewTasks(string search, string type, int limit, string accessToken)
+        public async Task<IEnumerable<ShowSearch>?> GetNewShows(string search, string type, int limit, string accessToken)
         {
-            throw new NotImplementedException();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var response = await _httpClient.GetAsync($"search?q={search}&type={type}");
+
+            response.EnsureSuccessStatusCode();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var responseObject = await JsonSerializer.DeserializeAsync<GetShowResults>(responseStream);
+
+            return responseObject?.shows?.items.Select(i => new ShowSearch
+            {
+                Name = i.name,
+                Description = i.description,
+                Explicit = i._explicit,
+                Publisher = i.publisher,
+                NumOfEpisodes = i.total_episodes,
+                ImageUrl = i.images.FirstOrDefault().url,
+                Link = i.external_urls.spotify
+            });
         }
 
-        public Task<IEnumerable<AlbumSearch>> GetNewShows(string search, string type, int limit, string accessToken)
+        public async Task<IEnumerable<EpisodeSearch>?> GetNewEpisodes(string search, string type, int limit, string accessToken)
         {
-            throw new NotImplementedException();
-        }
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-        public Task<IEnumerable<AlbumSearch>> GetNewEpisodes(string search, string type, int limit, string accessToken)
-        {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync($"search?q={search}&type={type}");
+
+            response.EnsureSuccessStatusCode();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var responseObject = await JsonSerializer.DeserializeAsync<GetEpisodeResults>(responseStream);
+
+            return responseObject?.episodes?.items.Select(i => new EpisodeSearch
+            {
+                Name = i.name,
+                Description = i.description,
+                ImageUrl = i.images.FirstOrDefault().url,
+                ReleaseDate = i.release_date,
+                Link = i.external_urls.spotify
+            });
         }
     }
 }

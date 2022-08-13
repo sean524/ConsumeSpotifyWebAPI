@@ -5,15 +5,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row mt-4">
+<h1 class="text-muted">New Releases</h1>
+<div class="row mt-4 justify-content-center">
     @foreach (var item in Model)
     {
-        <div class="card m-1 bg-dark" style="width:350px;">
-            <div class="card-body">
+        <div class="card m-1 bg-transparent border-3 border-secondary" style="width:350px;">
+            <div class="card-body align-content-center">
                 <h5 class="card-title text-light">@Html.DisplayFor(modelItem => item.Artists)</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Name)</h6>
+                <h6 class="card-subtitle mb-1 text-muted">@Html.DisplayFor(modelItem => item.Name)</h6>
                 <p class="card-text text-muted">@Html.DisplayFor(modelItem => item.Date)</p>
-                <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" width="300" alt="Release picture"/>
+                <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.ImageUrl)" width="300" alt="Release picture"/>
                 <a class="btn btn-outline-light mt-3" href="@Html.DisplayFor(modelItem => item.Link)" target="_blank">Listen</a>
             </div>
         </div>
