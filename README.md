@@ -5,7 +5,6 @@ This project will give the user the ability to search through Spotify and reciev
 ## Technologies Used
 - ASP.NET Core
 - Entity Framework Core
-- SQL Server Management Studio
 - Visual Studio
 
 ## Setup
